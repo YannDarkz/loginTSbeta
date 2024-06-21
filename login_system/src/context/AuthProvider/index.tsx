@@ -1,7 +1,7 @@
 import { createContext, useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom"
 import { IAuthProvider, IContext, IUser } from './types';
-import { LoginRequest, getUserLocalStorage, setUserLocalStorage } from './util';
+import { LoginRequest, LoginReq, getUserLocalStorage, setUserLocalStorage } from './util';
 
 export const AuthContext = createContext<IContext>({} as IContext)
 
@@ -17,18 +17,33 @@ export const AuthProvider = ({ children }: IAuthProvider) => {
         }
     }, [])
 
+    function authenticateI(email: string, password: string) {
 
+        if (LoginReq(email, password)) {
 
-    async function authenticate(email: string, password: string) {
-        const response = await LoginRequest(email, password)
+            const payload = { email, token: "tokenDef" }
 
-        const payload = { token: response.token, email}
+            setUser(payload)
 
-        setUser(payload)
+            setUserLocalStorage(payload)
 
-        setUserLocalStorage(payload)
+        } else {
+
+            console.log('sem dados')
+        }
 
     }
+
+    // async function authenticate(email: string, password: string) {
+    //     const response = await LoginRequest(email, password)
+
+    //     const payload = { token: response.token, email}
+
+    //     setUser(payload)
+
+    //     setUserLocalStorage(payload)
+
+    // }
 
     function logout() {
         setUser(null)
@@ -40,7 +55,7 @@ export const AuthProvider = ({ children }: IAuthProvider) => {
     }
 
     return (
-        <AuthContext.Provider value={{ ...user, authenticate, logout }}>
+        <AuthContext.Provider value={{ ...user, authenticateI, logout }}>
             <button onClick={logout}>Sair</button>
             {children}
         </AuthContext.Provider>

@@ -9,7 +9,7 @@ export function getUserLocalStorage () {
     const json = localStorage.getItem("u")
 
     if(!json) {
-        return null    ;
+        return null;
     }
 
     const user = JSON.parse(json)
@@ -19,14 +19,14 @@ export function getUserLocalStorage () {
 }
 
 
-export async function LoginReq (email: string, password: string) {
+export function LoginReq (email: string, password: string) {
     const emailOfc = "iandev@darkmail.com"
     const passwordOfc = "darkdivdev"
 
     if (email === emailOfc && password === passwordOfc){
         return true
     }else {
-        return false
+        return null
     }
 }
 

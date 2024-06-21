@@ -9,19 +9,30 @@ export const Login = () => {
     const auth = useAuth()
     const navigate = useNavigate()
 
-    async function onFinish(values: { email: string, password: string }) {
+    function onFinish(values: { email: string, password: string }) {
 
         try {
-            await auth.authenticate(values.email, values.password)
+            auth.authenticateI(values.email, values.password)
             navigate('/profile')
-        } catch (error) {
-            toast.error('Deu ruim aqui')
+        } catch (err) {
+            toast.error('Invalid email or password',)
         }
+
     }
+
+    // async function onFinish(values: { email: string, password: string }) {
+
+    //     try {
+    //         await auth.authenticate(values.email, values.password)
+    //         navigate('/profile')
+    //     } catch (error) {
+    //         toast.error('Deu ruim aqui')
+    //     }
+    // }
 
     return (
         <>
-         <ToastContainer />
+            <ToastContainer />
             <Row
                 justify='center'
                 align='middle'
