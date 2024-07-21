@@ -1,0 +1,16 @@
+.btn{
+    position: absolute;
+    top: 2rem;
+    left: 1rem;
+    padding: 0 1rem;
+    border-radius: 1rem;
+    transition: 0.5s ease-in-out;
+    
+    &:hover {
+        cursor: pointer;
+        color: black;
+        background-color: whitesmoke;
+        font-weight: bold;
+
+    }
+}
